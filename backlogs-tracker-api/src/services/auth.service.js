@@ -1,0 +1,25 @@
+const { status: httpStatus } = require("http-status");
+const ApiError = require("../utils/ApiError");
+const Users = require("../models/users.model");
+
+async function login(username, password) {
+  if (!password || !username) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      "Username and Password are required"
+    );
+  }
+
+  let user;
+  if (username) {
+    user = await Users.selectOneByUsernamePassword(username, password);
+  }
+
+  if ((Array.isArray(user) && user.length === 0) || !user) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Invalid Credentials");
+  }
+
+  return user[0];
+}
+
+module.exports = { login };
