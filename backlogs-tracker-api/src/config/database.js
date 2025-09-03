@@ -45,7 +45,8 @@ const Database = {
     id INT AUTO_INCREMENT PRIMARY KEY,
     userId INT NOT NULL,                      -- the owner of the board 
     title VARCHAR(255) NOT NULL,              -- the board title
-    icon VARCHAR(255) NOT NULL,               -- the string id of the icon
+    icon VARCHAR(255),                        -- the string id of the icon
+    color VARCHAR(255),
     FOREIGN KEY(userId) REFERENCES Users(id) ON DELETE CASCADE 
     )
   `);
@@ -57,10 +58,10 @@ const Database = {
     boardId INT NOT NULL,             
     title VARCHAR(255) NOT NULL,                                                   -- the task's title
     description TEXT,                                                              -- the task's description
-    intensity ENUM('low', 'medium', 'high') DEFAULT 'low' NOT NULL,                -- the intensity level of the task
-    duration_est INT,                                                              -- estimate in seconds of task duration
-    duration_real INT,                                                             -- the real task duration
-    status ENUM('todo', 'doing', 'paused', 'completed') DEFAULT 'todo' NOT NULL,   -- the 'board' status of the task
+    difficulty ENUM('easy', 'medium', 'hard') DEFAULT 'easy' NOT NULL,             -- the difficulty level of the task
+    duration INT,                                                                  -- estimate in seconds of task duration
+    color VARCHAR(255),
+    status ENUM('todo', 'doing', 'completed') DEFAULT 'todo' NOT NULL,             -- the 'board' status of the task
     FOREIGN KEY(boardId) REFERENCES Boards(id) ON DELETE CASCADE
     )
   `);

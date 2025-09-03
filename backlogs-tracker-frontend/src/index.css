@@ -1,5 +1,47 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("/fonts/JosefinSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("/fonts/JosefinSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("/fonts/JosefinSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("/fonts/JosefinSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+  --primary: "#3E2F5D";
+  --secondary: "#b57ce8";
+  --red: "#8e1600";
+  --background: "#f9f5f2";
+}
+
 html {
+  font-family: "Josefin Sans", sans-serif;
   background-color: #f9f5f2;
+  border-color: #3e2f5d;
+  color: #3e2f5d;
+}
+
+button {
+  cursor: pointer;
 }

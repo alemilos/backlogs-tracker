@@ -1,6 +1,6 @@
 const { status: httpStatus } = require("http-status");
 const ApiError = require("../utils/ApiError");
-const Users = require("../models/users.model");
+const { User } = require("../models");
 
 async function login(username, password) {
   if (!password || !username) {
@@ -12,7 +12,7 @@ async function login(username, password) {
 
   let user;
   if (username) {
-    user = await Users.selectOneByUsernamePassword(username, password);
+    user = await User.selectOneByUsernamePassword(username, password);
   }
 
   if ((Array.isArray(user) && user.length === 0) || !user) {

@@ -5,7 +5,9 @@ import { useAuth } from "providers/AuthProvider";
 
 const PrivateRoute = () => {
   const { auth } = useAuth();
-  const { isAuthenticated } = auth;
+  const { isAuthenticated, checkingAuth } = auth;
+
+  if (checkingAuth) return null;
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };

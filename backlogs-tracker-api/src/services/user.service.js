@@ -1,4 +1,4 @@
-const Users = require("../models/users.model");
+const { User } = require("../models");
 const ApiError = require("../utils/ApiError");
 const { status: httpStatus } = require("http-status");
 
@@ -7,7 +7,7 @@ async function createUser(username, email, password, role) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Missing parameters");
   }
 
-  await Users.addOne(username, email, password, role);
+  await User.addOne(username, email, password, role);
 }
 
 module.exports = { createUser };

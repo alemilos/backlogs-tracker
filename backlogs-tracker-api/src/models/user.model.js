@@ -72,10 +72,28 @@ const Users = {
       `;
 
       logger.info(`[Executing Query]: ${query}`);
-      const results = await pool.query(query);
-      return results;
+      const [result] = await pool.query(query);
+      return result;
     } catch (err) {
       logger.error("[Error in selectOneByUsernamePassword]: ", err);
+      throw err;
+    }
+  },
+
+  async findById(id) {
+    try {
+      const pool = Database.getPool();
+
+      const query = `
+        SELECT * FROM users 
+        WHERE id = ?
+      `;
+
+      logger.info(`[Executing Query]: ${query}`);
+      const [result] = await pool.query(query, [id]);
+      return result[0] || null;
+    } catch (err) {
+      logger.error("[Error in findById]: ", err);
       throw err;
     }
   },

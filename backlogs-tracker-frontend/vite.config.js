@@ -11,6 +11,8 @@ export default defineConfig({
       assets: "/src/assets",
       pages: "/src/pages",
       providers: "/src/providers",
+      stores: "/src/stores",
+      constants: "/src/constants",
       utils: "/src/utils",
       services: "/src/services",
       hooks: "/src/hooks",

@@ -76,7 +76,7 @@ const LeftPanel = () => {
   }
 
   return (
-    <div className="bg-white md:w-[400px] px-12 flex flex-col justify-center w-[600px] h-full">
+    <div className="bg-white md:w-[400px] px-12 flex flex-col justify-center w-[600px] border-[.5px] h-full">
       <div className="flex flex-col items-center justify-center mb-16">
         <img src={Logo} className="w-32" />
         <h1 className="text-2xl text-[#3E2F5D] font-medium">Registrati</h1>

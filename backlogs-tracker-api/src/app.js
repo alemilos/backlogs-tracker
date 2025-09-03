@@ -4,6 +4,8 @@ const cors = require("cors");
 const ApiError = require("./utils/ApiError");
 const errorHandler = require("./middlewares/errorHandler");
 const { status: httpStatus } = require("http-status");
+const passport = require("passport");
+const { jwtStrategy } = require("./config/passport");
 
 const app = express();
 
@@ -15,6 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // enable cors
 app.use(cors());
+
+// jwt authentication
+app.use(passport.initialize());
+passport.use("jwt", jwtStrategy);
 
 // Handle routes
 app.use("/v1", routes);

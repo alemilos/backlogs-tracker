@@ -8,20 +8,26 @@ import Register from "pages/Register";
 import AuthProvider from "providers/AuthProvider";
 
 import { ToastContainer } from "react-toastify";
+import ModalProvider from "providers/ModalProvider";
+import BoardsStore from "stores/boards/BoardsStore";
 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<PrivateRoute />}>
-            <Route path="/" exact element={<Home />} />
-          </Route>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-      <ToastContainer position="bottom-right" theme="colored" />
+      <ModalProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<PrivateRoute />}>
+              <Route path="/" exact element={<Home />} />
+            </Route>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+        <ToastContainer position="bottom-right" theme="colored" />
+        {/* Stores */}
+        <BoardsStore />
+      </ModalProvider>
     </AuthProvider>
   );
 }

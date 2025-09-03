@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import InputLabel from "components/ui/input/InputLabel";
@@ -59,17 +59,15 @@ const LeftPanel = () => {
     e.preventDefault();
     const res = await login(username, password);
 
-    console.log(res);
     if (res.ok) {
       navigate("/");
-      toast.success("Success");
     } else {
       toast.error(res.err);
     }
   }
 
   return (
-    <div className="bg-white md:w-[400px] min-w-[400px] px-12 flex flex-col justify-center h-full w-[600px]">
+    <div className="bg-white md:w-[400px] min-w-[400px] px-12 flex flex-col justify-center h-full w-[600px] border-[.5px] rounded-sm">
       <div className="flex flex-col items-center justify-center mb-16">
         <img src={Logo} className="w-32" />
         <h1 className="text-2xl text-[#3E2F5D] font-medium">Registrati</h1>
