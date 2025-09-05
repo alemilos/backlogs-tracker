@@ -1,17 +1,28 @@
 const mysql = require("mysql2/promise");
 require("dotenv").config();
 
+const isLinux = process.platform === "linux";
+
+console.log(process.platform);
+const connectionConfig = {
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  multipleStatements: true,
+};
+
+// Choose host or socket depending on OS
+if (isLinux) {
+  connectionConfig.socketPath = "/var/run/mysqld/mysqld.sock"; // default Linux socket
+} else {
+  connectionConfig.host = process.env.MYSQL_HOST || "127.0.0.1";
+}
+
 const Database = {
   pool: null,
 
   initMySql: async function () {
     // Make sure the database is created
-    const connection = await mysql.createConnection({
-      host: process.env.MYSQL_HOST,
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      multipleStatements: true, // vulnerable
-    });
+    const connection = await mysql.createConnection(connectionConfig);
 
     await connection.query(
       `CREATE DATABASE IF NOT EXISTS \`${process.env.MYSQL_DATABASE}\``
@@ -20,11 +31,8 @@ const Database = {
     await connection.end();
 
     this.pool = mysql.createPool({
-      host: process.env.MYSQL_HOST,
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
+      ...connectionConfig,
       database: process.env.MYSQL_DATABASE,
-      multipleStatements: true, // vulnerable
     });
 
     // Create User Table
