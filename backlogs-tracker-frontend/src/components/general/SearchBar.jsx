@@ -10,8 +10,6 @@ import { searchService } from "services/boards";
 import { hackerText } from "utils/text";
 
 // JSON PRETTY
-import JSONPretty from "react-json-pretty";
-import "react-json-pretty/themes/monikai.css";
 import { Icons } from "utils/icons";
 
 const SearchBar = () => {
@@ -205,16 +203,6 @@ const Rows = ({ query, results = [] }) => {
       </div>
     );
   }
-
-  /**
-   * 'Hacked' sql data
-   */
-  return (
-    <div className="flex flex-col gap-2">
-      {/* <p ref={vulnerableRef}>{JSON.stringify(results, null, 2)}</p> */}
-      <JSONPretty data={results} />
-    </div>
-  );
 };
 
 export default SearchBar;
