@@ -1,6 +1,7 @@
 const { status: httpStatus } = require("http-status");
 const ApiError = require("../utils/ApiError");
 const { User } = require("../models");
+const logger = require("../config/logger");
 
 async function login(username, password) {
   if (!password || !username) {
