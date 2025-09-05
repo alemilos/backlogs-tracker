@@ -45,23 +45,55 @@ The `MySQL2` database is voluntarily vulnerable by allowing `multipleStatements`
 
 ## 🛠️ Installation & Setup
 
-From the main repository `https://github.com/alemilos/backlogs-tracker.git`:
+Clone the repository:
 
-`cd backlogs-tracker-api`
+```bash
+git clone https://github.com/alemilos/backlogs-tracker.git
+cd backlogs-tracker-api
+```
+
+### macOS
 
 Install dependencies:
 
-`npm install`
+```bash
+npm install
+```
 
 Run the development server:
 
-`npm run dev`
+```bash
+npm run dev
+```
 
 The server will be available at:
 
-`http://localhost:8000`
+```
+http://localhost:8000
+```
 
 ---
+
+### Linux / Docker
+
+Make sure **Docker** and **Docker Compose** are installed. Then build and start the containers:
+
+```bash
+sudo docker-compose up --build
+```
+
+This will start:
+
+- **MySQL** database (`backlogs-mysql`)
+- **API server** (`backlogs-api`)
+
+The server will be available at:
+
+```
+http://localhost:8000
+```
+
+> ⚠️ Note: The Docker setup automatically creates the database `backlogs_tracker` with an empty root password for demonstration purposes.
 
 ## 📑 Database Schema
 
