@@ -1,0 +1,43 @@
+services:
+  mysql:
+    image: mysql:8.1
+    container_name: backlogs-mysql
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: backlogs_tracker
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+      interval: 5s
+      start_period: 30s
+
+  app:
+    image: node:22
+    container_name: backlogs-api
+    restart: on-failure
+    working_dir: /usr/src/app
+    command: npm run dev
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ""
+      MYSQL_DATABASE: backlogs_tracker
+      SERVER_PORT: 8000
+      JWT_SECRET: "secret"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  db_data:
