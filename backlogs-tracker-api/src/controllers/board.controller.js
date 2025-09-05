@@ -50,6 +50,16 @@ const removeTask = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send({ message: "Task deleted" });
 });
 
+/**
+ * Vulnerable controller
+ */
+const search = catchAsync(async (req, res) => {
+  const userId = req.user.id;
+  const query = req.query.query;
+  const results = await boardService.querySearch(userId, query);
+  res.status(httpStatus.OK).send({ results });
+});
+
 module.exports = {
   getBoards,
   addBoard,
@@ -58,4 +68,5 @@ module.exports = {
   addTask,
   updateTask,
   removeTask,
+  search,
 };

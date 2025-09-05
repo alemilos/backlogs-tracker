@@ -15,6 +15,8 @@ async function login(username, password) {
     user = await User.selectOneByUsernamePassword(username, password);
   }
 
+  logger.info(user);
+
   if ((Array.isArray(user) && user.length === 0) || !user) {
     throw new ApiError(httpStatus.NOT_FOUND, "Invalid Credentials");
   }

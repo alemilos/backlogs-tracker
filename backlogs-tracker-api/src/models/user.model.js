@@ -2,14 +2,6 @@ const Database = require("../config/database");
 const logger = require("../config/logger");
 
 const Users = {
-  /**
-   * Safe
-   * @param {*} username
-   * @param {*} email
-   * @param {*} password
-   * @param {*} role
-   * @returns
-   */
   async addOne(username, email, password, role) {
     try {
       const pool = Database.getPool();
@@ -19,13 +11,13 @@ const Users = {
         (username, email, password, role) 
         VALUES (?, ? , ?, ?)
         `;
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
 
       const [result] = await pool.query(query, [
         username,
         email,
         password,
-        role,
+        role ?? "user",
       ]);
 
       return result.insertId;
@@ -35,10 +27,6 @@ const Users = {
     }
   },
 
-  /**
-   * Safe
-   * @param {*} userId
-   */
   async deleteOne(userId) {
     try {
       const query = `
@@ -46,9 +34,8 @@ const Users = {
       WHERE id = ?  
       `;
 
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
       const res = await pool.query(query, [userId]);
-      console.log(res);
 
       return res;
     } catch (err) {
@@ -89,7 +76,8 @@ const Users = {
         WHERE id = ?
       `;
 
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
+
       const [result] = await pool.query(query, [id]);
       return result[0] || null;
     } catch (err) {

@@ -28,3 +28,7 @@ export async function updateTaskService(boardId, payload) {
 export async function deleteTaskService(boardId, taskId) {
   return await del(Endpoints.deleteTask + boardId, { params: { taskId } });
 }
+
+export async function searchService(query) {
+  return await get(Endpoints.search, { params: { query } });
+}

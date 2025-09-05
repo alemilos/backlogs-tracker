@@ -12,7 +12,7 @@ const Tasks = {
         VALUES (?, ?, ?, ?, ?, ?, ?)
       `;
 
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
 
       const [result] = await pool.query(query, [
         boardId,
@@ -35,7 +35,7 @@ const Tasks = {
     const pool = Database.getPool();
     try {
       const query = `SELECT * FROM tasks WHERE id = ? AND boardId = ?`;
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
 
       const [rows] = await pool.query(query, [id, boardId]);
       return rows[0] || null;
@@ -79,7 +79,7 @@ const Tasks = {
     const pool = Database.getPool();
     try {
       const query = `SELECT * FROM tasks WHERE boardId = ?`;
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
 
       const [rows] = await pool.query(query, [boardId]);
       return rows;
@@ -93,7 +93,7 @@ const Tasks = {
     const pool = Database.getPool();
     try {
       const query = `DELETE FROM tasks WHERE id = ? AND boardId = ?`;
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
 
       const [result] = await pool.query(query, [id, boardId]);
       return result.affectedRows > 0; // true if delete happened

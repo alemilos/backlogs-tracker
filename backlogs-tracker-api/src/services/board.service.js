@@ -1,6 +1,7 @@
 const { status: httpStatus } = require("http-status");
 const { Board, Task } = require("../models");
 const ApiError = require("../utils/ApiError");
+const logger = require("../config/logger");
 
 async function queryBoards(userId) {
   const boards = await Board.getAllByUser(userId);
@@ -59,6 +60,14 @@ async function deleteTask(userId, boardId, taskId) {
     throw new ApiError(httpStatus.NOT_FOUND, "Task not deleted");
 }
 
+async function querySearch(userId, query) {
+  logger.info(`[User Search Query]:  ${query}`);
+  // search in tasks and search in boards
+  const results = await Board.getByTitle(userId, query);
+  // maybe add tasks here ?
+  return results;
+}
+
 module.exports = {
   queryBoards,
   addBoard,
@@ -67,4 +76,5 @@ module.exports = {
   addTask,
   updateTask,
   deleteTask,
+  querySearch,
 };

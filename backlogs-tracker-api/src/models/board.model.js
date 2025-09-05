@@ -12,7 +12,7 @@ const Boards = {
         VALUES (?, ?, ?, ?)
       `;
 
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
 
       const [result] = await pool.query(query, [
         userId,
@@ -32,7 +32,7 @@ const Boards = {
     const pool = Database.getPool();
     try {
       const query = `SELECT * FROM boards WHERE id = ? AND userId = ?`;
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
 
       const [rows] = await pool.query(query, [id, userId]);
       return rows[0] || null;
@@ -68,18 +68,13 @@ const Boards = {
     }
   },
 
-  /**
-   * Vulnerable
-   * @param {*} userId a user id (or a malicious sql injection string)
-   * @returns
-   */
   async getAllByUser(userId) {
     const pool = Database.getPool();
     try {
-      const query = `SELECT * FROM boards WHERE userId = ${userId}`;
-      logger.info(`[Executing Query]: ${query}`);
+      const query = `SELECT * FROM boards WHERE userId = ?`;
+      // logger.info(`[Executing Query]: ${query}`);
 
-      const [rows] = await pool.query(query);
+      const [rows] = await pool.query(query, [userId]);
 
       return rows;
     } catch (err) {
@@ -88,11 +83,45 @@ const Boards = {
     }
   },
 
+  /**
+   * Vulneable
+   * @param {*} userId
+   * @param {*} title
+   * @returns
+   */
+  async getByTitle(userId, title) {
+    const pool = Database.getPool();
+    try {
+      let query;
+      if (title === "*") {
+        query = `
+        SELECT * FROM boards
+        WHERE userId = ${userId}
+        `;
+      } else {
+        query = `
+        SELECT * FROM boards
+        WHERE userId = ${userId} AND title = '${title}'
+        `;
+        // AND (title = '${title}' OR title LIKE '%${title}%')
+      }
+
+      logger.info(`[Executing Query]: ${query}`);
+
+      const [rows] = await pool.query(query);
+
+      return rows;
+    } catch (err) {
+      logger.error("[Error in getByTitle]: ", err);
+      throw err;
+    }
+  },
+
   async deleteByIdAndUser(id, userId) {
     const pool = Database.getPool();
     try {
       const query = `DELETE FROM boards WHERE id = ? AND userId = ?`;
-      logger.info(`[Executing Query]: ${query}`);
+      // logger.info(`[Executing Query]: ${query}`);
 
       const [result] = await pool.query(query, [id, userId]);
       return result.affectedRows > 0; // true if delete happened

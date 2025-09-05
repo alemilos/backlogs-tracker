@@ -1,13 +1,19 @@
 import BackgroundImage from "assets/background.png";
 import CreateBoardZone from "components/general/CreateBoardZone";
 import SearchBar from "components/general/SearchBar";
-import DailyBoard from "components/boards/DailyBoard";
 import { useRef } from "react";
 import Boards from "components/boards/Boards";
 import LogoutButton from "components/general/LogoutButton";
+import HelperSqlQueries from "components/general/HelperSqlQueries";
+import { useAuth } from "providers/AuthProvider";
+import AdminLabel from "components/general/AdminLabel";
 
 const Home = () => {
+  const { auth } = useAuth();
   const containerRef = useRef(null);
+
+  const isAdmin = auth?.user?.role === "admin";
+  console.log(auth.user);
 
   return (
     <div
@@ -20,10 +26,11 @@ const Home = () => {
       }}
     >
       <SearchBar />
-      <DailyBoard />
+      <HelperSqlQueries />
       <Boards containerRef={containerRef} />
       <CreateBoardZone />
       <LogoutButton />
+      {isAdmin && <AdminLabel />}
     </div>
   );
 };

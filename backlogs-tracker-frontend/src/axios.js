@@ -1,13 +1,13 @@
 import axios from "axios";
 import { clearToken, clearUser, getToken } from "utils/storage";
 
-const API_TIMEOUT_MS = 4000;
+// const API_TIMEOUT_MS = 3000;
 const API_URL = "http://localhost:8000";
 
 // Create an Axios instance
 const axiosInstance = axios.create({
   baseURL: API_URL, // Your API base URL
-  timeout: API_TIMEOUT_MS,
+  // timeout: API_TIMEOUT_MS,
   headers: {
     "Content-Type": "application/json",
   },

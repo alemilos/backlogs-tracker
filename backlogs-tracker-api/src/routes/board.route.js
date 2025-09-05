@@ -34,4 +34,6 @@ router
     boardController.removeTask
   );
 
+router.get("/search", auth(), boardController.search);
+
 module.exports = router;

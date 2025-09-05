@@ -23,7 +23,7 @@ const generateAccessToken = async (user) => {
   const expires = moment().add(TOKEN_EXP_TIME, "minutes");
 
   const payload = {
-    sub: user.id,
+    sub: user?.id,
     iat: moment().unix(),
     exp: expires.unix(),
   };
