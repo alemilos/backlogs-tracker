@@ -41,27 +41,59 @@ It consists of two main parts:
 
 Clone the repository:
 
-`git clone https://github.com/alemilos/backlogs-tracker.git`
+```bash
+git clone https://github.com/alemilos/backlogs-tracker.git
+cd backlogs-tracker
+```
 
-Navigate to the repo:
-
-`cd backlogs-tracker`
+---
 
 ### Backend (API)
 
-`cd backlogs-tracker-api`
+#### macOS (local Node)
 
-`npm install`
+```bash
+cd backlogs-tracker-api
+npm install
+npm run dev
+```
 
-`npm run dev`
+The server will be available at:
+
+```
+http://localhost:8000
+```
+
+#### Linux / Docker
+
+Make sure **Docker** and **Docker Compose** are installed, then:
+
+```bash
+cd backlogs-tracker-api
+sudo docker-compose up --build
+```
+
+The server will be available at:
+
+```
+http://localhost:8000
+```
+
+---
 
 ### Frontend (UI)
 
-`cd backlogs-tracker-frontend`
+```bash
+cd backlogs-tracker-frontend
+npm install
+npm run dev
+```
 
-`npm install`
+The frontend will be available at:
 
-`npm run dev`
+```
+http://localhost:5173
+```
 
 ---
 
