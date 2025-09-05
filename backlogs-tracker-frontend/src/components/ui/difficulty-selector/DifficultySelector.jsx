@@ -1,4 +1,4 @@
-import Tag from "components/ui/tag/tag";
+import Tag from "components/ui/tag/Tag";
 import { Difficulties } from "constants/tasks";
 
 const DifficultySelector = ({ difficulty, changeDifficulty }) => {
